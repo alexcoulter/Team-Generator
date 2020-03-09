@@ -9,44 +9,53 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 const employeeArray = [];
+var thisRole = "Manager";
+
 console.log("Let's build your software engineering team");
 console.log("We'll start with the manager");
+employeeBuilder();
 
 //Asks the user questions about the manager of their team
-inquirer
-  .prompt([
-    {
-      type: "input",
-      message: "What is the manager's name?",
-      name: "name"
-    },
-    {
-      type: "input",
-      message: "What is the manager's Id #?",
-      name: "id",
-    },
-    {
-      type: "input",
-      message: "What is the manager's Email?",
-      name: "email",
-    },
-    {
-      type: "input",
-      message: "What is the manager's Office #?",
-      name: "office",
-    }
+function employeeBuilder() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: `What is the ${thisRole}'s name?`,
+        name: "name",
+        validate: onlyLetters
+      },
+      {
+        type: "input",
+        message: `What is the ${thisRole}'s Id #?`,
+        name: "id",
+        validate: isNumber
+      },
+      {
+        type: "input",
+        message: `What is the ${thisRole}'s Email?`,
+        name: "email",
+        validate: validateEmail
+      },
+    ])
+    .then(function (res) {
+      let newEmployee = new Employee(res.name, res.id, res.email);
+      if (thisRole === "Manager") {
+        managerBuilder(newEmployee);
+      }
+      if (thisRole === "Engineer") {
+        engineerBuilder(newEmployee);
+      }
+      if (thisRole === "Intern") {
+        internBuilder(newEmployee);
+      }
+    });
+}
 
-  ])
-  .then(function (res) {
-    const emp1 = new Manager(res.name, res.id, res.email, res.office);
-    employeeArray.push(emp1);
-    newTeamMember();
-  });
 
-
-  //Asks user if they want to add a team member and if so they specify what type 
-  function newTeamMember() {
-    inquirer
+//Asks user if they want to add a team member and if so they specify what type 
+function newTeamMember() {
+  inquirer
     .prompt([
       {
         type: "list",
@@ -56,101 +65,114 @@ inquirer
       }
     ])
     .then(function (res) {
+
+      if (res.position === "Engineer" || res.position === "Intern") {
+        thisRole = res.position;
+        employeeBuilder();
+      }
       
-      if(res.position === "Engineer"){
-        engineerBuilder();
-      }
-      else if(res.position === "Intern"){
-        internBuilder();
-      }
       else {
         console.log("done building your team!");
         printTeam();
       }
     });
-  }
+}
 
-  //asks questions for adding an engineer to the team
-  function engineerBuilder() {
-    inquirer
+
+//asks manager specific question and constructs new manager
+function managerBuilder(emp) {
+  inquirer
     .prompt([
       {
         type: "input",
-        message: "What is the Engineer's name?",
-        name: "name",
+        message: `What is the ${thisRole}'s Office #?`,
+        name: "office",
+        validate: isNumber
       },
-      {
-        type: "input",
-        message: "What is the Engineer's Id #?",
-        name: "id",
-      },
-      {
-        type: "input",
-        message: "What is the Engineer's Email?",
-        name: "email",
-      },
+
+    ])
+
+    .then(function (res) {
+      const emp1 = new Manager(emp.name, emp.id, emp.email, res.office);
+      console.log(emp1);
+      employeeArray.push(emp1);
+      newTeamMember();
+    });
+}
+
+
+//asks engineer specific question and constructs new engineer
+function engineerBuilder(emp) {
+  inquirer
+    .prompt([
       {
         type: "input",
         message: "What is the Engineer's Github username?",
         name: "github"
-      }
+      },
     ])
     .then(function (res) {
-      let newEmployee = new Engineer(res.name, res.id, res.email, res.github);
+      let newEmployee = new Engineer(emp.name, emp.id, emp.email, res.github);
       employeeArray.push(newEmployee);
       newTeamMember();
     });
-  }
+}
 
 
-  //asks questions for adding an intern to the team
-  function internBuilder() {
-    inquirer
+//asks intern specific question and constructs new intern
+function internBuilder(emp) {
+  inquirer
     .prompt([
       {
         type: "input",
-        message: "What is the Intern's name?",
-        name: "name",
-      },
-      {
-        type: "input",
-        message: "What is the Intern's Id #?",
-        name: "id",
-      },
-      {
-        type: "input",
-        message: "What is the Intern's Email?",
-        name: "email",
-      },
-      {
-        type: "input",
         message: "What school did the intern go to?",
-        name: "school"
+        name: "school",
+        validate: onlyLetters
       }
     ])
     .then(function (res) {
-      let newEmployee = new Intern(res.name, res.id, res.email, res.school);
+      let newEmployee = new Intern(emp.name, emp.id, emp.email, res.school);
       employeeArray.push(newEmployee);
       newTeamMember();
     });
+}
+
+//Validation to see if input is a number
+function isNumber(name) {
+  if(isNaN(name)) {
+    return "please input a number";
   }
-  
-  
-  function printTeam() {
-    const formattedTeam = render(employeeArray);
+  return true;
+}
 
-    fs.writeFile(outputPath, formattedTeam, function (err) {
-      if (err) throw err;
-    });
 
+//validation to ensure input is only letters
+function onlyLetters(name) {
+  var pattern = new RegExp(/[~`!0123456789#$%\^&@*+=\\[\]\\';,./{}|\\":<>\?]/); //unacceptable characters
+    if (pattern.test(name)) {
+        return "please input letters only";
     }
+    return true;
+}
 
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
+//validation for email
+function validateEmail(name) 
+{
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(name))
+  {
+    return (true);
+  }
+    return "please enter a valid email address";
+}
 
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
+
+
+//formats employee info and creates html page with their info
+function printTeam() {
+  const formattedTeam = render(employeeArray);
+
+  fs.writeFile(outputPath, formattedTeam, function (err) {
+    if (err) throw err;
+  });
+
+}

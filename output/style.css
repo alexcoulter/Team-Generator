@@ -1,0 +1,94 @@
+
+html {
+  height: 100%;
+}
+body {
+  background-image: url("pipes.png");
+  height: 100%;
+}
+
+.team-heading {
+  background-color: rgba(0, 102, 153, .8);
+  color: white;
+  font-family: 'Special Elite', cursive;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.row {
+  margin-bottom: 4%;
+}
+
+.team-area {
+  text-align: center;
+}
+
+.employee-card {
+  border: 2px solid gray;
+  min-width: 320px;
+  max-width: 420px;
+  display: inline-block;
+  margin: 2%;
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.employee-card:hover {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  box-shadow: 10px 15px 7px #C7C7C7;
+}
+
+.card-header {
+  background-color: #b3e6ff;
+}
+
+.card-body {
+  background-color: #ebf0fa;
+  border-top: 1px solid gray;
+}
+
+.team-name {
+  color: rgb(0, 102, 153);
+  text-shadow: 2px 1px 0 black;
+  font-weight: bolder;
+}
+
+.team-title {
+  font-family: 'Bowlby One SC', cursive;
+  font-style: italic;
+}
+
+.list-group {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.wrapper {
+  min-height:100%;
+  margin-bottom: calc(-80px - 4%);
+}
+
+.push {
+  height: 40px;
+}
+
+.footer {
+  height: 40px;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding-top: 5px;
+  margin-top: 4%;
+}
+
+.footer p {
+  margin-bottom:0;
+}
+
+
+@media screen and (max-width: 450px) {
+  .employee-card {
+    width: 95%;
+  }
+}
