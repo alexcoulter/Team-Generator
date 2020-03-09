@@ -65,11 +65,11 @@ body {
 
 .wrapper {
   min-height:100%;
-  margin-bottom: calc(-80px - 4%);
+  margin-bottom: calc(-40px - 4%)
 }
 
 .push {
-  height: 40px;
+  height: 70px;
 }
 
 .footer {
