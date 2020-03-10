@@ -2,6 +2,7 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Employee = require("./lib/Employee");
+const chalk = require("chalk");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
@@ -11,8 +12,10 @@ const render = require("./lib/htmlRenderer");
 const employeeArray = [];
 var thisRole = "Manager";
 
-console.log("Let's build your software engineering team");
-console.log("We'll start with the manager");
+console.clear();
+console.log(chalk.bgBlue.bold("Let's build your software engineering team "));
+console.log(chalk.bgBlue.bold("We'll start with the Manager:              "));
+console.log(chalk.bgBlack("                                           "));
 employeeBuilder();
 
 //Asks the user questions about the manager of their team
@@ -72,7 +75,6 @@ function newTeamMember() {
       }
       
       else {
-        console.log("done building your team!");
         printTeam();
       }
     });
@@ -94,7 +96,6 @@ function managerBuilder(emp) {
 
     .then(function (res) {
       const emp1 = new Manager(emp.name, emp.id, emp.email, res.office);
-      console.log(emp1);
       employeeArray.push(emp1);
       newTeamMember();
     });
@@ -140,7 +141,7 @@ function internBuilder(emp) {
 //Validation to see if input is a number
 function isNumber(name) {
   if(isNaN(name)) {
-    return "please input a number";
+    return chalk.red("please input a number");
   }
   return true;
 }
@@ -150,7 +151,7 @@ function isNumber(name) {
 function onlyLetters(name) {
   var pattern = new RegExp(/[~`!0123456789#$%\^&@*+=\\[\]\\';,./{}|\\":<>\?]/); //unacceptable characters
     if (pattern.test(name)) {
-        return "please input letters only";
+        return chalk.red("please input letters only");
     }
     return true;
 }
@@ -162,7 +163,7 @@ function validateEmail(name)
   {
     return (true);
   }
-    return "please enter a valid email address";
+    return chalk.red("please enter a valid email address");
 }
 
 
@@ -174,5 +175,6 @@ function printTeam() {
   fs.writeFile(outputPath, formattedTeam, function (err) {
     if (err) throw err;
   });
-
+  console.log(chalk.green("Your team information page has been built!"));
+  console.log(chalk.green("Check out the team.html file in your ouput folder"));
 }
