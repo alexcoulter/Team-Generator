@@ -34,9 +34,9 @@
 ## Screenshots  
 ###### Laptop Screenshot    
 <img  alt="Laptop Screenshot" src= "ssLaptop.png" width="600px" />  
-###### Ipad Screenshot    
+ Ipad Screenshot    
 <img  alt="Ipad Screenshot" src= "ssIpad.jpg" width="500px" />
-###### Iphone Screenshot  
+ Iphone Screenshot  
 <div align="center"><img  alt="Iphone Screensho" src= "ssIphone.png" width="300px" /></div>
  
 ## Built With  
