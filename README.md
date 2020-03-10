@@ -32,13 +32,12 @@
  
  
 ## Screenshots  
-
-  * Laptop Screenshot  
-  <div align="center"><img  alt="Laptop Screenshot" src= "ssLaptop.png" width="600px" /></div>
-  * Ipad Screenshot  
-  <div align="center"><img  alt="Ipad Screenshot" src= "ssIpad.jpg" width="500px" /></div>
-  * Iphone Screenshot
-  <div align="center"><img  alt="Iphone Screensho" src= "ssIphone.png" width="300px" /></div>
+###### Laptop Screenshot    
+<img  alt="Laptop Screenshot" src= "ssLaptop.png" width="600px" />  
+###### Ipad Screenshot    
+<img  alt="Ipad Screenshot" src= "ssIpad.jpg" width="500px" />
+###### Iphone Screenshot  
+<div align="center"><img  alt="Iphone Screensho" src= "ssIphone.png" width="300px" /></div>
  
 ## Built With  
 
