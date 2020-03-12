@@ -23,7 +23,7 @@
 
   * Usage demo:
 
-><div align="center"><img  alt="usage.gif" src= "appUse.gif" width="600px" /></div>
+><div align="center"><img  alt= "usage.gif" src= "screenshots/appUse.gif" width="600px" /></div>
 
  
 ## Testing  
@@ -32,12 +32,14 @@
  
  
 ## Screenshots  
-###### Laptop Screenshot    
-<img  alt="Laptop Screenshot" src= "ssLaptop.png" width="600px" />  
+Laptop Screenshot    
+<img  alt="Laptop Screenshot" src= "screenshots/ssLaptop.png" width="600px" />
+
  Ipad Screenshot    
-<img  alt="Ipad Screenshot" src= "ssIpad.jpg" width="500px" />
+<img  alt="Ipad Screenshot" src= "screenshots/ssIpad.jpg" width="500px" />  
  Iphone Screenshot  
-<img  alt="Iphone Screensho" src= "ssIphone.png" width="300px" />
+
+<img  alt="Iphone Screensho" src= "screenshots/ssIphone.png" width="300px" />
  
 ## Built With  
 
